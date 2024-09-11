@@ -1,5 +1,10 @@
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
 @Repository
-@Primary
 public class AcervoJDBCImpl implements IAcervoRepository{
     private JdbcTemplate jdbcTemplate;
 
@@ -27,4 +32,3 @@ public class AcervoJDBCImpl implements IAcervoRepository{
             livro.codigo(),livro.titulo(),livro.autor(),livro.ano());
             return true;
     }
-}

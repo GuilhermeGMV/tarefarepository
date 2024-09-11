@@ -33,4 +33,9 @@ public class Livro {
     public String toString() {
         return "Livro [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", ano=" + ano + "]";
     }
+
+    public Object codigo() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'codigo'");
+    }
 }
