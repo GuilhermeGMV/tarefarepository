@@ -1,6 +1,5 @@
 package com.bcopstein.ex1biblioeca;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Controller {
+    
+    @Autowired
     private IAcervoRepository livros;
 
     @Autowired
-    public Controller(IAcervoRepository livros) {
-        this.livros = livros; 
-    }
+    private IUsuarioRepository usuarios;
+
+
 
     @GetMapping("")
     @CrossOrigin(origins = "*")
@@ -58,5 +59,38 @@ public class Controller {
     @CrossOrigin(origins = "*")
     public boolean cadastraLivroNovo(@RequestBody final Livro livro) {
         return livros.cadastraLivroNovo(livro);
+    }
+
+    @GetMapping("usuarios")
+    @CrossOrigin(origins = "*")
+    public List<Usuario> getListaUsuarios() {
+        return usuarios.getAll();
+    }
+
+    @PostMapping("/retirarlivro")
+    @CrossOrigin(origins = "*")
+    public boolean retiraLivro(@RequestParam(value = "livroId") long livroId, @RequestParam(value = "usuarioId") long usuarioId) {
+        return livros.retiraLivro(livroId, usuarioId);
+    }
+
+    @PostMapping("/devolverlivro")
+    @CrossOrigin(origins = "*")
+    public boolean devolveLivro(@RequestParam(value = "livroId") long livroId, @RequestParam(value = "usuarioId") long usuarioId) {
+        return livros.devolveLivro(livroId, usuarioId);
+    }
+
+    @GetMapping("/livros/user/{userId}")
+    @CrossOrigin(origins = "*")
+    public List<Livro> getLivrosDoUsuario(@PathVariable(value = "userId") long userId) {
+        return livros.getLivrosUsuario(userId);
+    }
+
+    @GetMapping("/livros/disponiveis")
+    @CrossOrigin(origins = "*")
+    public List<Livro> getLivrosDisponiveis() {
+        return livros.getAll()
+                .stream()
+                .filter(l -> l.getUserId() == -1)
+                .toList();
     }
 }

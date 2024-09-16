@@ -10,4 +10,7 @@ public interface IAcervoRepository {
     Livro getLivroTitulo(String titulo);
     boolean cadastraLivroNovo(Livro livro);
     boolean removeLivro(long codigo);
+    boolean retiraLivro(long livroId, long userId);
+    boolean devolveLivro(long livroId, long userId);
+    List<Livro> getLivrosUsuario(long userId);
 }
